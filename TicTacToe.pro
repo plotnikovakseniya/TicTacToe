@@ -7,16 +7,19 @@ QT += quick
 SOURCES += \
         main.cpp
 
-RESOURCES += qml.qrc
+RESOURCES += \
+        qml.qrc
 
 TRANSLATIONS += \
-    TicTacToe_en_US.ts
+        translations/TicTacToe_en_US.ts
+
 CONFIG += lrelease
 CONFIG += embed_translations
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
-QML_IMPORT_PATH =
-
+QML_IMPORT_PATH += $$PWD/qml
+QML2_IMPORT_PATH += $$PWD/qml
++
 # Additional import path used to resolve QML modules just for Qt Quick Designer
 QML_DESIGNER_IMPORT_PATH =
 
@@ -24,3 +27,10 @@ QML_DESIGNER_IMPORT_PATH =
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    qml/GameBoard/Base/GameBoardBase.qml \
+    main.qml \
+    qml/GameBoard/Base/qmldir \
+    qml/GameBoard/Impl/qmldir \
+    qml/GameBoard/qmldir
