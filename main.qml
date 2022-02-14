@@ -3,6 +3,8 @@ import QtQuick.Controls 2.15
 import GameBoard.Base 1.0
 import QtQuick.Controls.Universal 2.15
 import GameMenu 1.0
+import GameControllerBase 1.0
+import ResourceProvider 1.0
 
 ApplicationWindow {
     id: root
@@ -10,19 +12,19 @@ ApplicationWindow {
     height: 600
     visible: true
 
-    Universal.theme: Universal.Dark
+    Universal.theme: _gameController.theme ? Universal.Light : Universal.Dark
 
     menuBar: GameMenu {
-        themeIcon: "qrc:/stylesettings/icons/theme.svg"
-        themeText: "Light &theme"
+        themeText: _gameController.theme ? "Dark" : "Light"
+        themeIcon: ResourceProvider.icons.themeIcon
     }
 
     Button {
         text: "123"
     }
 
-//    GameControllerBase {
-//        id: _gameController
-//    }
+    GameControllerBase {
+        id: _gameController
+    }
 
 }

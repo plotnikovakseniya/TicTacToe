@@ -40,6 +40,7 @@ DISTFILES += \
     qml/GameBoard/qmldir \
     qml/GameMenu/qmldir \
     qml/GameMenu/qmldir \
+    qml/ResourceProvider/qmldir \
     stylesettings/icons/settings.svg
 
 HEADERS += \

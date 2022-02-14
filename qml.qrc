@@ -6,5 +6,6 @@
         <file>stylesettings/icons/settings.svg</file>
         <file>stylesettings/icons/theme.svg</file>
         <file>qml/GameMenu/GameMenu.qml</file>
+        <file>qml/ResourceProvider/ResourceProvider.qml</file>
     </qresource>
 </RCC>

@@ -5,18 +5,23 @@
 class GameControllerBase : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(int theme READ theme WRITE setTheme NOTIFY themeChanged)
 public:
-    GameControllerBase(QObject* parent = nullptr);
-
-    static void registerMe(const std::string& moduleName);
-
     enum GameTheme {
       Dark,
       Light
     };
 
-    /*Q_INVOKABLE*/ GameTheme theme() const;
-    void setTheme(GameTheme newTheme);
+    explicit GameControllerBase(GameTheme theme = Dark, QObject* parent = nullptr);
+
+    static void registerMe(const std::string& moduleName);
+
+    int theme() const;
+    QString themeName() const;
+    void setTheme(int newTheme);
+
+signals:
+    void themeChanged();
 
 private:
     GameTheme m_theme;
