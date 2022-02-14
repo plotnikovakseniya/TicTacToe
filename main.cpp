@@ -4,7 +4,8 @@
 #include <QLocale>
 #include <QTranslator>
 
-#include "gamecontroller/base/gamecontrollerbase.h"
+#include "gamecontroller/gamecontroller.h"
+#include "gamemodel/gamemodel.h"
 
 int main(int argc, char *argv[])
 {
@@ -24,7 +25,8 @@ int main(int argc, char *argv[])
         }
     }
 
-    GameControllerBase::registerMe("GameControllerBase");
+    GameModel::registerMe("GameModel");
+    GameController::registerMe("GameController");
 
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/main.qml"));

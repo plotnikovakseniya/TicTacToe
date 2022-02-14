@@ -1,9 +1,9 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
-import GameBoard.Base 1.0
+import GameBoard 1.0
 import QtQuick.Controls.Universal 2.15
 import GameMenu 1.0
-import GameControllerBase 1.0
+import GameController 1.0
 import ResourceProvider 1.0
 
 ApplicationWindow {
@@ -15,15 +15,19 @@ ApplicationWindow {
     Universal.theme: _gameController.theme ? Universal.Light : Universal.Dark
 
     menuBar: GameMenu {
+        id: _gameMenu
         gameController: _gameController
     }
 
-    Button {
-        text: "123"
+    GameBoard {
+        id: _gameBoard
+
+        anchors.fill: parent
+
+        gameController: _gameController
     }
 
-    GameControllerBase {
+    GameController {
         id: _gameController
     }
-
 }

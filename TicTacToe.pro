@@ -6,7 +6,8 @@ QT += quickcontrols2
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-        gamecontroller/base/gamecontrollerbase.cpp \
+        gamecontroller/gamecontroller.cpp \
+        gamemodel/gamemodel.cpp \
         main.cpp
 
 RESOURCES += \
@@ -33,10 +34,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
-    qml/GameBoard/Base/GameBoardBase.qml \
+    qml/GameBoard/GameBoard.qml \
     main.qml \
-    qml/GameBoard/Base/qmldir \
-    qml/GameBoard/Impl/qmldir \
     qml/GameBoard/qmldir \
     qml/GameMenu/qmldir \
     qml/GameMenu/qmldir \
@@ -44,4 +43,5 @@ DISTFILES += \
     stylesettings/icons/settings.svg
 
 HEADERS += \
-    gamecontroller/base/gamecontrollerbase.h
+    gamecontroller/gamecontroller.h \
+    gamemodel/gamemodel.h

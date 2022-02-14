@@ -1,11 +1,11 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>qml/GameBoard/Base/GameBoardBase.qml</file>
         <file>stylesettings/qtquickcontrols2.conf</file>
         <file>stylesettings/icons/settings.svg</file>
         <file>stylesettings/icons/theme.svg</file>
         <file>qml/GameMenu/GameMenu.qml</file>
         <file>qml/ResourceProvider/ResourceProvider.qml</file>
+        <file>qml/GameBoard/GameBoard.qml</file>
     </qresource>
 </RCC>
