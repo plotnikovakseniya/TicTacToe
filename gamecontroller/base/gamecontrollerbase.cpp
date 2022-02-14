@@ -17,21 +17,6 @@ int GameControllerBase::theme() const
     return m_theme;
 }
 
-QString GameControllerBase::themeName() const
-{
-    switch(m_theme) {
-    case Dark: {
-        return "Dark";
-    }
-    case Light: {
-        return "Light";
-    }
-    default: {
-        return "";
-    }
-    }
-}
-
 void GameControllerBase::setTheme(int newTheme)
 {
     if (m_theme == newTheme)

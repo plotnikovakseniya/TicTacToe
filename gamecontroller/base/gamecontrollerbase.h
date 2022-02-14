@@ -17,7 +17,6 @@ public:
     static void registerMe(const std::string& moduleName);
 
     int theme() const;
-    QString themeName() const;
     void setTheme(int newTheme);
 
 signals:
