@@ -25,3 +25,9 @@ void GameControllerBase::setTheme(int newTheme)
     m_theme = static_cast<GameTheme>(newTheme);
     emit themeChanged();
 }
+
+void GameControllerBase::switchTheme()
+{
+    m_theme = static_cast<GameTheme>(static_cast<int>(!m_theme));
+    emit themeChanged();
+}

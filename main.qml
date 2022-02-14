@@ -15,8 +15,7 @@ ApplicationWindow {
     Universal.theme: _gameController.theme ? Universal.Light : Universal.Dark
 
     menuBar: GameMenu {
-        themeText: _gameController.theme ? "Dark" : "Light"
-        themeIcon: ResourceProvider.icons.themeIcon
+        gameController: _gameController
     }
 
     Button {

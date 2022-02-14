@@ -18,6 +18,7 @@ public:
 
     int theme() const;
     void setTheme(int newTheme);
+    Q_INVOKABLE void switchTheme();
 
 signals:
     void themeChanged();
