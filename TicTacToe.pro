@@ -1,4 +1,5 @@
 QT += quick
+QT += quickcontrols2
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -15,6 +16,8 @@ TRANSLATIONS += \
 
 CONFIG += lrelease
 CONFIG += embed_translations
+
+QT_QUICK_CONTROLS_CONF += $$PWD/stylesettings/qtquickcontrols2.conf
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH += $$PWD/qml

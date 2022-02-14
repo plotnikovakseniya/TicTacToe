@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>qml/GameBoard/Base/GameBoardBase.qml</file>
+        <file>stylesettings/qtquickcontrols2.conf</file>
     </qresource>
 </RCC>

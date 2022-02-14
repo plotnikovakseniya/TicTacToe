@@ -1,17 +1,18 @@
 import QtQuick 2.15
-import QtQuick.Window 2.3
+import QtQuick.Controls 2.0
 import GameBoard.Base 1.0
+import QtQuick.Controls.Universal 2.0
 
-Window {
+ApplicationWindow {
     id: root
     width: 200
     height: 200
     visible: true
 
+    Universal.theme: Universal.Dark
 
-    Text {
+    Button {
         text: "123"
-        font.pointSize: 40
     }
 
 //    GameBoardBase {
