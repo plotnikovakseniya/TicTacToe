@@ -6,6 +6,7 @@ QT += quickcontrols2
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+        gamecontroller/base/gamecontrollerbase.cpp \
         main.cpp
 
 RESOURCES += \
@@ -36,4 +37,10 @@ DISTFILES += \
     main.qml \
     qml/GameBoard/Base/qmldir \
     qml/GameBoard/Impl/qmldir \
-    qml/GameBoard/qmldir
+    qml/GameBoard/qmldir \
+    qml/GameMenu/qmldir \
+    qml/GameMenu/qmldir \
+    stylesettings/icons/settings.svg
+
+HEADERS += \
+    gamecontroller/base/gamecontrollerbase.h

@@ -4,7 +4,7 @@
 #include <QLocale>
 #include <QTranslator>
 
-#include <QQuickStyle>
+#include "gamecontroller/base/gamecontrollerbase.h"
 
 int main(int argc, char *argv[])
 {
@@ -23,6 +23,8 @@ int main(int argc, char *argv[])
             break;
         }
     }
+
+    GameControllerBase::registerMe("GameControllerBase");
 
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/main.qml"));
