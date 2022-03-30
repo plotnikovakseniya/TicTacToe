@@ -21,3 +21,8 @@ ClientSettings *GameController::clientSettings() const
 {
     return m_clientSettings;
 }
+
+GameController::~GameController()
+{
+    delete m_clientSettings;
+}
