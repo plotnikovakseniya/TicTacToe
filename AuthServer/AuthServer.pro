@@ -1,0 +1,2 @@
+DISTFILES += \
+    networksettings/networksettings.conf

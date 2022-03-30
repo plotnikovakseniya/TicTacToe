@@ -16,7 +16,7 @@ TRANSLATIONS += \
 CONFIG += lrelease
 CONFIG += embed_translations
 
-QT_QUICK_CONTROLS_CONF += stylesettings/qtquickcontrols2.conf
+QT_QUICK_CONTROLS_CONF += stylesettings/stylesettings.conf
 
 QML_IMPORT_PATH += qml
 QML2_IMPORT_PATH += qml
