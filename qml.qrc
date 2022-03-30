@@ -7,5 +7,6 @@
         <file>qml/GameMenu/GameMenu.qml</file>
         <file>qml/ResourceProvider/ResourceProvider.qml</file>
         <file>qml/GameBoard/GameBoard.qml</file>
+        <file>qml/GameBoard/GameDelegate.qml</file>
     </qresource>
 </RCC>

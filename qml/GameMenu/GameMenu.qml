@@ -15,10 +15,10 @@ MenuBar {
 
         Action {
             id: _theme
-            text: (_gameController.theme ? "Dark" : "Light") + " &theme"
+            text: (_gameController.clientSettings().theme ? "Dark" : "Light") + " &theme"
             icon.source: ResourceProvider.icons.themeIcon
             onTriggered: {
-                gameController.switchTheme()
+                gameController.clientSettings().switchTheme()
             }
         }
 

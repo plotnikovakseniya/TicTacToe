@@ -14,14 +14,27 @@ public:
 
     static void registerMe(const std::string& moduleName);
 
+    enum GameModelRoles {
+        CageText = Qt::ItemDataRole::UserRole + 1
+    };
+
+    enum CageValues {
+        Empty,
+        FirstPlayer,
+        SecondPlayer
+    };
+
     QVariant data(const QModelIndex& index, int role) const override;
     int rowCount(const QModelIndex& parent) const override;
+    QHash<int, QByteArray> roleNames() const override;
 
     size_t dimension() const;
 signals:
 
 private:
     size_t m_dimension;
+    std::vector<CageValues> m_gameBoard;
+    std::map<CageValues, char> m_cageValueSign;
 };
 
 #endif // GAMEMODEL_H

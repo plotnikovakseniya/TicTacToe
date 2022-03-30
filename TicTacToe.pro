@@ -1,13 +1,10 @@
 QT += quick
 QT += quickcontrols2
 
-# You can make your code fail to compile if it uses deprecated APIs.
-# In order to do so, uncomment the following line.
-#DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
-
 SOURCES += \
-        gamecontroller/gamecontroller.cpp \
-        gamemodel/gamemodel.cpp \
+        src/clientsettings.cpp \
+        src/gamecontroller.cpp \
+        src/gamemodel.cpp \
         main.cpp
 
 RESOURCES += \
@@ -21,14 +18,12 @@ CONFIG += embed_translations
 
 QT_QUICK_CONTROLS_CONF += $$PWD/stylesettings/qtquickcontrols2.conf
 
-# Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH += $$PWD/qml
 QML2_IMPORT_PATH += $$PWD/qml
-+
-# Additional import path used to resolve QML modules just for Qt Quick Designer
-QML_DESIGNER_IMPORT_PATH =
 
-# Default rules for deployment.
+INCLUDEPATH += $$PWD/include
+
+QML_DESIGNER_IMPORT_PATH =
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
@@ -43,5 +38,6 @@ DISTFILES += \
     stylesettings/icons/settings.svg
 
 HEADERS += \
-    gamecontroller/gamecontroller.h \
-    gamemodel/gamemodel.h
+    include/clientsettings.h \
+    include/gamecontroller.h \
+    include/gamemodel.h

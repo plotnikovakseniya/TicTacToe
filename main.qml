@@ -12,7 +12,7 @@ ApplicationWindow {
     height: 600
     visible: true
 
-    Universal.theme: _gameController.theme ? Universal.Light : Universal.Dark
+    Universal.theme: _gameController.clientSettings().theme ? Universal.Light : Universal.Dark
 
     menuBar: GameMenu {
         id: _gameMenu
