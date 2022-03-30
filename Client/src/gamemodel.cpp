@@ -1,9 +1,9 @@
 #include "gamemodel.h"
 
 GameModel::GameModel(size_t dimension, QObject *parent)
-    : QAbstractListModel{parent},
+    : QAbstractListModel {parent},
       m_dimension {dimension},
-      m_gameBoard(m_dimension*m_dimension, CageValues::Empty)
+      m_gameBoard {m_dimension*m_dimension, CageValues::Empty}
 {
     m_cageValueSign = {{CageValues::Empty, ' '}, {CageValues::FirstPlayer, 'X'}, {CageValues::SecondPlayer, 'O'}};
 }

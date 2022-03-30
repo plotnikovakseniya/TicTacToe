@@ -24,7 +24,7 @@ protected:
     Port m_port;
     std::vector<QTcpSocket*> m_clients;
 
-    virtual void handlePackage(net::Package& package, QTcpSocket* socket);
+    virtual bool handlePackage(net::Package& package, QTcpSocket* socket);
     virtual void connectSignals();
     virtual void connectSocketSignals(QTcpSocket* socket);
 };

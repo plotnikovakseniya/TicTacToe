@@ -3,7 +3,7 @@
 ClientSettings* ClientSettings::m_clientSettings = nullptr;
 
 ClientSettings::ClientSettings(GameTheme theme, QObject *parent)
-    : QObject{parent},
+    : QObject {parent},
       m_theme {theme}
 {
 

@@ -11,7 +11,7 @@ public:
 
     explicit GameController(ClientSettings::GameTheme theme = ClientSettings::GameTheme::Dark, QObject* parent = nullptr);
     ~GameController();
-    static void registerMe(const std::string& moduleName);
+    static void registerMe(const std::string& modulesName);
     Q_INVOKABLE GameModel* gameModel();
     Q_INVOKABLE ClientSettings* clientSettings() const;
 

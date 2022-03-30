@@ -6,7 +6,7 @@ namespace net
 {
 
 ServerManager::ServerManager(const QHostAddress& address, const Port& port)
-    : m_address{address},
+    : m_address {address},
       m_port {port}
 {
     ServerManager::connectSignals();
@@ -81,27 +81,17 @@ void ServerManager::notify(const net::Package &package, QTcpSocket *socket)
     }
 }
 
-void ServerManager::handlePackage(net::Package &package, QTcpSocket *socket)
+bool ServerManager::handlePackage(net::Package &package, QTcpSocket *socket)
 {
     if (!socket)
     {
         qWarning() << "Package handle failed: null socket!";
-        return;
+        return false;
     }
 
     qDebug() << "Recieved package with type " << static_cast<int>(package.type());
 
-//    switch (package.type())
-//    {
-//        case net::PackageType::CONTACTS_REQUEST:
-//        {
-//            m_contactsWorker.handleContactsRequest(socket);
-//            break;
-//        }
-//        default: {
-//            qWarning() << "Invalid package recieved!";
-//        }
-//    }
+    return true;
 }
 
 void ServerManager::connectSignals()

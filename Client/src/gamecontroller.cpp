@@ -1,7 +1,7 @@
 #include "gamecontroller.h"
 
 GameController::GameController(ClientSettings::GameTheme theme, QObject* parent)
-    : QObject(parent)
+    : QObject {parent}
 {
     m_clientSettings = ClientSettings::getClientSettings(theme);
 }
