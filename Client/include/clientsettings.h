@@ -28,7 +28,7 @@ signals:
     void themeChanged();
 
 protected:
-    explicit ClientSettings(GameTheme theme = GameTheme::Dark, QObject *parent = nullptr);
+    explicit ClientSettings(const GameTheme& theme = GameTheme::Dark, QObject *parent = nullptr);
 
 private:
     static ClientSettings* m_clientSettings;

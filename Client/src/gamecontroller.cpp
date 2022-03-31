@@ -1,11 +1,12 @@
 #include "gamecontroller.h"
 
-GameController::GameController(ClientSettings::GameTheme theme, QObject* parent)
+GameController::GameController(ClientSettings::GameTheme theme,
+                               QObject* parent)
     : QObject {parent},
       m_client {Client::instance()},
       m_clientSettings {ClientSettings::getClientSettings(theme)}
 {
-    setConnectionSettings();
+    m_client.setConnectionSettings(net::ConnectionSettings {NETWORK_SETTINGS_FILE, "GameServer"});
 }
 
 void GameController::registerMe(const std::string& moduleName)
@@ -29,23 +30,8 @@ GameController::~GameController()
     delete m_clientSettings;
 }
 
-bool GameController::setConnectionSettings()
+bool GameController::setConnectionSettings(const net::ConnectionSettings& connectionSettings)
 {
-    qDebug() << "Network settings file: " << NETWORK_SETTINGS_FILE;
-
-    // TODO: add check NETWORK_SETTINGS_FILE exists
-
-    QSettings settings(NETWORK_SETTINGS_FILE, QSettings::IniFormat);
-    settings.beginGroup("GameServer");
-
-    // TODO: add check QHostAddress and Port are correct
-
-    m_client.setConnectionSettings( net::ConnectionSettings {
-                                        QHostAddress {settings.value("IPAddress").toString()},
-                                        settings.value("Port").value<net::Port>() });
-    qDebug() << "New connection settings";
-    qDebug() << "IP address: " << settings.value("IPAddress").toString();
-    qDebug() << "Port: " << settings.value("Port").toString();
-    settings.endGroup();
+    m_client.setConnectionSettings(connectionSettings);
     return true;
 }

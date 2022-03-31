@@ -82,7 +82,7 @@ void ClientManager::connectToServer()
 {
     qDebug() << "Connecting to server...";
 
-    m_serverSocket.connectToHost(m_connectionSettings.address, m_connectionSettings.port);
+    m_serverSocket.connectToHost(m_connectionSettings.address(), m_connectionSettings.port());
 }
 
 void ClientManager::connectSocketSignals()

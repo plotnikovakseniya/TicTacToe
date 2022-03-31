@@ -24,9 +24,4 @@ namespace net
     };
 
     using Port = quint16;
-
-    struct ConnectionSettings {
-        QHostAddress address;
-        Port port;
-    };
 }

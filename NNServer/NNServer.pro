@@ -11,3 +11,6 @@ INCLUDEPATH += include \
                ../shared/include
 
 LIBS += -L$$PWD/../shared/lib -lNetworkLib
+
+DEFINES += \
+    NETWORK_SETTINGS_FILE='\\"$$PWD/../shared/networksettings/networksettings.conf\\"'

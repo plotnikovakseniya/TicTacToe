@@ -4,7 +4,7 @@
 int main(int argc, char** argv)
 {
     QCoreApplication app(argc, argv);
-    NNServer server { net::ConnectionSettings { QHostAddress {"127.0.0.1"}, 8080 } };
+    NNServer server { net::ConnectionSettings {NETWORK_SETTINGS_FILE, "NNServer"} };
 
     return app.exec();
 }

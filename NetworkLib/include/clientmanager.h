@@ -1,7 +1,9 @@
 #pragma once
+
 #include <QTcpSocket>
 #include <QSettings>
 #include "package.h"
+#include "connectionsettings.h"
 
 namespace net
 {

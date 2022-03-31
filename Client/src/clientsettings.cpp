@@ -1,8 +1,9 @@
 #include "clientsettings.h"
+#include "connectionsettings.h"
 
 ClientSettings* ClientSettings::m_clientSettings = nullptr;
 
-ClientSettings::ClientSettings(GameTheme theme, QObject *parent)
+ClientSettings::ClientSettings(const GameTheme& theme, QObject *parent)
     : QObject {parent},
       m_theme {theme}
 {

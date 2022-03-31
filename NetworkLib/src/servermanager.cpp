@@ -9,7 +9,7 @@ ServerManager::ServerManager(const net::ConnectionSettings& serverAddress)
     : m_serverAddress {serverAddress}
 {
     ServerManager::connectSignals();
-    const bool listenResult {m_server.listen(m_serverAddress.address, m_serverAddress.port)};
+    const bool listenResult {m_server.listen(m_serverAddress.address(), m_serverAddress.port())};
 
     if (!listenResult)
     {

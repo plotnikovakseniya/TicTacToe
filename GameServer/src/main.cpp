@@ -4,7 +4,8 @@
 int main(int argc, char** argv)
 {
     QCoreApplication app(argc, argv);
-    GameServer server { net::ConnectionSettings {QHostAddress{"127.0.0.1"}, 8080} };
+
+    GameServer server { net::ConnectionSettings {NETWORK_SETTINGS_FILE, "GameServer"} };
 
     return app.exec();
 }

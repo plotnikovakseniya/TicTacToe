@@ -38,6 +38,8 @@ bool GameServer::handlePackage(net::Package &package, QTcpSocket *socket)
     }
     default: {
         qWarning() << "Invalid package recieved!";
+        return false;
     }
     }
+    return true;
 }

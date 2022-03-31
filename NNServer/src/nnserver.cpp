@@ -8,5 +8,5 @@ NNServer::NNServer(const net::ConnectionSettings& serverAddress)
 
 bool NNServer::handlePackage(net::Package &package, QTcpSocket *socket)
 {
-
+    return true;
 }
