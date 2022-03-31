@@ -1,5 +1,6 @@
 #pragma once
 #include <QtGlobal>
+#include <QHostAddress>
 
 namespace net
 {
@@ -23,4 +24,9 @@ namespace net
     };
 
     using Port = quint16;
+
+    struct ConnectionSettings {
+        QHostAddress address;
+        Port port;
+    };
 }

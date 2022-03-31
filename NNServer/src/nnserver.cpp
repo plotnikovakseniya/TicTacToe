@@ -1,7 +1,7 @@
 #include "nnserver.h"
 
-NNServer::NNServer(const QHostAddress &address, const net::Port &port)
-    : ServerManager {address, port}
+NNServer::NNServer(const net::ConnectionSettings& serverAddress)
+      : net::ServerManager {serverAddress}
 {
 
 }

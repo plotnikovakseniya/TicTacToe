@@ -1,5 +1,4 @@
-#ifndef GAMEMODEL_H
-#define GAMEMODEL_H
+#pragma once
 
 #include <QObject>
 #include <QAbstractListModel>
@@ -36,5 +35,3 @@ private:
     std::vector<CageValues> m_gameBoard;
     std::map<CageValues, char> m_cageValueSign;
 };
-
-#endif // GAMEMODEL_H

@@ -5,6 +5,7 @@ SOURCES += \
         src/clientsettings.cpp \
         src/gamecontroller.cpp \
         src/gamemodel.cpp \
+        src/client.cpp \
         main.cpp
 
 RESOURCES += \
@@ -37,4 +38,10 @@ DISTFILES += \
 HEADERS += \
     include/clientsettings.h \
     include/gamecontroller.h \
-    include/gamemodel.h
+    include/gamemodel.h\
+    include/client.h
+
+INCLUDEPATH += include \
+               ../shared/include
+
+LIBS += -L$$PWD/../shared/lib -lNetworkLib

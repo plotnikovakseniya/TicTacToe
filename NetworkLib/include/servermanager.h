@@ -10,8 +10,7 @@ class ServerManager : public QObject
 {
     Q_OBJECT
 public:
-    ServerManager(const QHostAddress& address, const Port& port);
-
+    ServerManager(const net::ConnectionSettings& serverAddress);
 private slots:
     virtual void onNewConnection();
     virtual void onClientDisconnected();
@@ -19,9 +18,8 @@ private slots:
     virtual void notify(const net::Package& package, QTcpSocket* socket);
 
 protected:
+    net::ConnectionSettings m_serverAddress;
     QTcpServer m_server;
-    QHostAddress m_address;
-    Port m_port;
     std::vector<QTcpSocket*> m_clients;
 
     virtual bool handlePackage(net::Package& package, QTcpSocket* socket);

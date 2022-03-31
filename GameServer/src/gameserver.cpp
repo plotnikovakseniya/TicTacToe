@@ -1,7 +1,7 @@
 #include "gameserver.h"
 
-GameServer::GameServer(const QHostAddress &address, const net::Port &port)
-    : net::ServerManager {address, port}
+GameServer::GameServer(const net::ConnectionSettings& serverAddress)
+      : net::ServerManager {serverAddress}
 {
 
 }
@@ -15,23 +15,29 @@ bool GameServer::handlePackage(net::Package &package, QTcpSocket *socket)
 
     switch (package.type())
     {
-        case net::PackageType::GAME_START_REQUEST:
-        {
-            //m_contactsWorker.handleContactsRequest(socket);
-            break;
-        }
-        case net::PackageType::GAME_END_REQUEST:
-        {
-            //m_contactsWorker.handleContactsRequest(socket);
-            break;
-        }
-        case net::PackageType::NEXT_MOVE_REQUEST:
-        {
-            //m_contactsWorker.handleContactsRequest(socket);
-            break;
-        }
-        default: {
-            qWarning() << "Invalid package recieved!";
-        }s
+    case net::PackageType::GAME_START_REQUEST:
+    {
+        // find patner
+        // start new game
+        // select gamer for first move
+        break;
+    }
+    case net::PackageType::GAME_END_REQUEST:
+    {
+        // send GAME_END_REQUEST to patner
+        // upload data to DB
+        break;
+    }
+    case net::PackageType::NEXT_MOVE_REQUEST:
+    {
+        // check is move correct
+        // update game field
+        // notify the patner
+        // send response
+        break;
+    }
+    default: {
+        qWarning() << "Invalid package recieved!";
+    }
     }
 }
