@@ -4,6 +4,7 @@
 #include <QQmlEngine>
 #include "gamemodel.h"
 #include "clientsettings.h"
+#include "client.h"
 
 class GameController : public QObject
 {
@@ -12,11 +13,13 @@ public:
 
     explicit GameController(ClientSettings::GameTheme theme = ClientSettings::GameTheme::Dark, QObject* parent = nullptr);
     ~GameController();
-    static void registerMe(const std::string& modulesName);
     Q_INVOKABLE GameModel* gameModel();
     Q_INVOKABLE ClientSettings* clientSettings() const;
+    static void registerMe(const std::string& modulesName);
+    bool setConnectionSettings();
 
 private:
+    Client& m_client;
     GameModel m_gameModel;
     ClientSettings* m_clientSettings;
 };
