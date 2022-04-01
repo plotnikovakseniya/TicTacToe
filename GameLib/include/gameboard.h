@@ -29,7 +29,7 @@ public:
     GameBoard(Dimension dimension = 3);
     GameState updateGameBoard(Row row, Column column, CageValue value);
     GameState gameState() const;
-private:
+protected:
     GameState winner(CageValue value) const;
     GameState checkGameState() const;
     GameState m_gameState;
