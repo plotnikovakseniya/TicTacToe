@@ -27,7 +27,7 @@ public:
     };
 
     GameBoard(Dimension dimension = 3);
-    bool updateGameBoard(Row row, Column column, CageValue value);
+    GameState updateGameBoard(Row row, Column column, CageValue value);
     GameState gameState() const;
 private:
     GameState winner(CageValue value) const;

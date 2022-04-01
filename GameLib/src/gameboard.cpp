@@ -11,21 +11,21 @@ GameBoard::GameBoard(Dimension dimension)
 {
 }
 
-bool GameBoard::updateGameBoard(Row row, Column column, CageValue value)
+GameBoard::GameState GameBoard::updateGameBoard(Row row, Column column, CageValue value)
 {
-    if (value == CageValue::Empty)
-        return false;
-
-    if (row > m_dimension - 1 || column > m_dimension - 1)
-        return false;
+    if (m_gameState != GameState::Continue)
+        return m_gameState;
 
     CageIndex ind = row * m_dimension + column;
 
-    if (m_gameBoard.at(ind) != CageValue::Empty)
-        return false;
-
-    if (m_nextMove != value)
-        return false;
+    if (value == CageValue::Empty ||
+        row > m_dimension - 1 || column > m_dimension - 1 ||
+        m_gameBoard.at(ind) != CageValue::Empty ||
+        m_nextMove != value)
+    {
+        m_gameState = GameState::Error;
+        return m_gameState;
+    }
 
     m_gameBoard.at(ind) = value;
     m_nextMove = (m_nextMove == CageValue::FirstPlayer) ?
@@ -34,7 +34,7 @@ bool GameBoard::updateGameBoard(Row row, Column column, CageValue value)
 
     m_gameState = checkGameState();
 
-    return true;
+    return m_gameState;
 }
 
 GameBoard::GameState GameBoard::winner(CageValue value) const
@@ -57,6 +57,9 @@ GameBoard::GameState GameBoard::gameState() const
 
 GameBoard::GameState GameBoard::checkGameState() const
 {
+    if (m_gameState != GameState::Continue)
+        return m_gameState;
+
     // check by row
     for (auto rowBegin = m_gameBoard.begin();
          rowBegin < m_gameBoard.end();
@@ -65,7 +68,7 @@ GameBoard::GameState GameBoard::checkGameState() const
         if (std::equal(rowBegin + 1, rowBegin + m_dimension, rowBegin) &&
                 *rowBegin != CageValue::Empty)
         {
-            winner(*rowBegin);
+            return winner(*rowBegin);
         }
     }
 
