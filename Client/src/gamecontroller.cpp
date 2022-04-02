@@ -6,7 +6,7 @@ GameController::GameController(ClientSettings::GameTheme theme,
       m_client {Client::instance()},
       m_clientSettings {ClientSettings::getClientSettings(theme)}
 {
-    m_client.setConnectionSettings(net::ConnectionSettings {NETWORK_SETTINGS_FILE, "GameServer"});
+    // m_client.setConnectionSettings(net::ConnectionSettings {NETWORK_SETTINGS_FILE, "GameServer"});
 }
 
 void GameController::registerMe(const std::string& moduleName)

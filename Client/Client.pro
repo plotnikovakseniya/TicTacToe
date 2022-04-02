@@ -19,8 +19,8 @@ CONFIG += embed_translations
 
 QT_QUICK_CONTROLS_CONF += stylesettings/stylesettings.conf
 
-QML_IMPORT_PATH += qml
-QML2_IMPORT_PATH += qml
+QML_IMPORT_PATH += $$PWD/qml
+QML2_IMPORT_PATH += $$PWD/qml
 
 INCLUDEPATH += include
 
@@ -44,7 +44,7 @@ HEADERS += \
 INCLUDEPATH += include \
                ../shared/include
 
-LIBS += -L$$PWD/../shared/lib -lNetworkLib
+LIBS += -L$$PWD/../shared/lib -lNetworkLib -lGameLib
 
 DEFINES += \
     NETWORK_SETTINGS_FILE='\\"$$PWD/../shared/networksettings/networksettings.conf\\"'

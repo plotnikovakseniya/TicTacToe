@@ -3,13 +3,15 @@
 #include <QObject>
 #include <QAbstractListModel>
 #include <QQmlEngine>
+#include "gameboard.h"
 
-class GameModel : public QAbstractListModel
+class GameModel : public QAbstractListModel,
+                  public tictactoe::GameBoard
 {
     Q_OBJECT
     Q_PROPERTY(int dimension READ dimension CONSTANT)
 public:
-    explicit GameModel(size_t dimension = 3, QObject *parent = nullptr);
+    explicit GameModel(tictactoe::Dimension dimension = 3, QObject *parent = nullptr);
 
     static void registerMe(const std::string& moduleName);
 
@@ -17,21 +19,15 @@ public:
         CageText = Qt::ItemDataRole::UserRole + 1
     };
 
-    enum CageValues {
-        Empty,
-        FirstPlayer,
-        SecondPlayer
-    };
+    Q_INVOKABLE bool updateGameField(int index);
 
     QVariant data(const QModelIndex& index, int role) const override;
     int rowCount(const QModelIndex& parent) const override;
     QHash<int, QByteArray> roleNames() const override;
-
-    size_t dimension() const;
+    bool updateGameField();
+    tictactoe::Dimension dimension() const;
 signals:
 
 private:
-    size_t m_dimension;
-    std::vector<CageValues> m_gameBoard;
-    std::map<CageValues, char> m_cageValueSign;
+    std::map<CageValue, char> m_cageValueSign;
 };

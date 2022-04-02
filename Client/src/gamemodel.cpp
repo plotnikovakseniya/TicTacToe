@@ -1,16 +1,29 @@
 #include "gamemodel.h"
 
-GameModel::GameModel(size_t dimension, QObject *parent)
+GameModel::GameModel(tictactoe::Dimension dimension, QObject *parent)
     : QAbstractListModel {parent},
-      m_dimension {dimension},
-      m_gameBoard {m_dimension*m_dimension, CageValues::Empty}
+      tictactoe::GameBoard {dimension}
 {
-    m_cageValueSign = {{CageValues::Empty, ' '}, {CageValues::FirstPlayer, 'X'}, {CageValues::SecondPlayer, 'O'}};
+    m_cageValueSign = {{CageValue::Empty, ' '}, {CageValue::FirstPlayer, 'X'}, {CageValue::SecondPlayer, 'O'}};
 }
 
 void GameModel::registerMe(const std::string& moduleName)
 {
     qmlRegisterType<GameModel>(moduleName.c_str(), 1, 0, "GameModel");
+}
+
+bool GameModel::updateGameField(int ind)
+{
+    qDebug() << ind;
+    tictactoe::Row row = ind / m_dimension;
+    tictactoe::Column column = ind % m_dimension;
+    beginResetModel();
+    GameBoard::updateGameBoard(row, column, m_nextMove);
+    endResetModel();
+
+    // emit dataChanged(index(ind), index(ind));
+
+    return true;
 }
 
 QHash<int, QByteArray> GameModel::roleNames() const
@@ -35,9 +48,8 @@ QVariant GameModel::data(const QModelIndex& index, int role) const
     {
     case GameModelRoles::CageText:
     {
-        //char x = m_cageValueSign[CageValues::Empty];
-        //return QVariant::fromValue(QString(m_cageValueSign[m_gameBoard[rowIndex]]));
-        return QVariant::fromValue(QString("X"));
+        return QVariant::fromValue(QString(m_cageValueSign.at(m_gameBoard[rowIndex])));
+        // return QVariant::fromValue(QString("X"));
     }
     default:
     {
@@ -49,7 +61,7 @@ QVariant GameModel::data(const QModelIndex& index, int role) const
     return {};
 }
 
-size_t GameModel::dimension() const
+tictactoe::Dimension GameModel::dimension() const
 {
     return m_dimension;
 }

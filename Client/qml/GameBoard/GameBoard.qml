@@ -12,6 +12,12 @@ GridView {
     delegate: GameDelegate {
         width: root.cellWidth
         height: root.cellHeight
+
+        MouseArea {
+            id: _mouseArea
+            anchors.fill: parent
+            onClicked: root.model.updateGameField(index) // console.log(index)
+        }
     }
 
     Component.onCompleted: {

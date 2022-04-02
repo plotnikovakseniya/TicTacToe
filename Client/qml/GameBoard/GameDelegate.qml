@@ -8,7 +8,7 @@ Item {
     Rectangle {
         id: _rectangle
 
-        color: _mouseArea.pressed ? Universal.foreground : Universal.background
+        color: Universal.background
 
         anchors.fill: parent
         anchors.leftMargin: -border.width
@@ -30,10 +30,5 @@ Item {
             font.family: "Funhouse"
             font.pointSize: Math.min(root.width / 2, root.height / 2)
         }
-    }
-
-    MouseArea {
-        id: _mouseArea
-        anchors.fill: parent
     }
 }
