@@ -1,5 +1,6 @@
 #include "nnserver.h"
 #include <QCoreApplication>
+#include <QDebug>
 
 int main(int argc, char** argv)
 {

@@ -1,34 +1,27 @@
 #pragma once
 
 #include <vector>
+#include <QObject>
+#include "gametypes.h"
+
 namespace tictactoe
 {
 
-using Dimension = unsigned int;
-using Row = unsigned int;
-using Column = unsigned int;
-using CageIndex = unsigned int;
-
-class GameBoard
+class GameBoard : public QObject
 {
+    Q_OBJECT
 public:
-    enum CageValue {
-        Empty,
-        FirstPlayer,
-        SecondPlayer
-    };
-
-    enum GameState {
-        Continue,
-        FirstPlayerWin,
-        SecondPlayerWin,
-        Draw,
-        Error
-    };
-
     GameBoard(Dimension dimension = 3);
     GameState updateGameBoard(Row row, Column column, CageValue value);
     GameState gameState() const;
+    CageValue cageValue(Row row, Column column) const;
+    CageValue cageValue(CageIndex index) const;
+    CageValue operator[](CageIndex index) const;
+
+signals:
+    // void gameBoardUpdated(tictactoe::CageIndex index, tictactoe::CageValue value);
+    void gameEnd(tictactoe::GameState state);
+
 protected:
     GameState winner(CageValue value) const;
     GameState checkGameState() const;

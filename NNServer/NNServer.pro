@@ -7,8 +7,8 @@ SOURCES += \
 
 HEADERS += include/nnserver.h
 
-INCLUDEPATH += include \
-               ../shared/include
+INCLUDEPATH += include \s
+               ../shared/include \
 
 LIBS += -L$$PWD/../shared/lib -lNetworkLib
 

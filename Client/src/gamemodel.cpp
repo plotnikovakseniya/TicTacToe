@@ -2,9 +2,13 @@
 
 GameModel::GameModel(tictactoe::Dimension dimension, QObject *parent)
     : QAbstractListModel {parent},
-      tictactoe::GameBoard {dimension}
+      m_dimension {dimension},
+      m_gameBoard {nullptr},
+      m_player {tictactoe::CageValue::Empty}
 {
-    m_cageValueSign = {{CageValue::Empty, ' '}, {CageValue::FirstPlayer, 'X'}, {CageValue::SecondPlayer, 'O'}};
+    m_cageValueSign = {{tictactoe::CageValue::Empty, ' '},
+                       {tictactoe::CageValue::FirstPlayer, 'X'},
+                       {tictactoe::CageValue::SecondPlayer, 'O'}};
 }
 
 void GameModel::registerMe(const std::string& moduleName)
@@ -14,15 +18,18 @@ void GameModel::registerMe(const std::string& moduleName)
 
 bool GameModel::updateGameField(int ind)
 {
-    tictactoe::Row row = ind / m_dimension;
-    tictactoe::Column column = ind % m_dimension;
-    beginResetModel();
-    GameBoard::updateGameBoard(row, column, m_nextMove);
-    endResetModel();
-
+    if (m_gameBoard != nullptr)
+    {
+        beginResetModel();
+        m_gameBoard->updateGameBoard(ind / m_dimension,
+                                     ind % m_dimension,
+                                     m_player);
+        endResetModel();
+        return true;
+    }
     // emit dataChanged(index(ind), index(ind));
 
-    return true;
+    return false;
 }
 
 QHash<int, QByteArray> GameModel::roleNames() const
@@ -47,8 +54,10 @@ QVariant GameModel::data(const QModelIndex& index, int role) const
     {
     case GameModelRoles::CageText:
     {
-        return QVariant::fromValue(QString(m_cageValueSign.at(m_gameBoard[rowIndex])));
-        // return QVariant::fromValue(QString("X"));
+        if (m_gameBoard != nullptr)
+            return QVariant::fromValue(QString(m_cageValueSign.at(m_gameBoard->cageValue(rowIndex))));
+        else
+            return QVariant::fromValue(QString(" "));
     }
     default:
     {
@@ -63,6 +72,16 @@ QVariant GameModel::data(const QModelIndex& index, int role) const
 tictactoe::Dimension GameModel::dimension() const
 {
     return m_dimension;
+}
+
+void GameModel::setGameBoard(tictactoe::GameBoard* newGameBoard)
+{
+    m_gameBoard = newGameBoard;
+}
+
+void GameModel::setPlayer(tictactoe::CageValue newPlayer)
+{
+    m_player = newPlayer;
 }
 
 int GameModel::rowCount(const QModelIndex& parent) const

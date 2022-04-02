@@ -12,7 +12,7 @@ class ServerManager : public QObject
     Q_OBJECT
 public:
     ServerManager(const net::ConnectionSettings& serverAddress);
-private slots:
+protected slots:
     virtual void onNewConnection();
     virtual void onClientDisconnected();
     virtual void onDataArrived();

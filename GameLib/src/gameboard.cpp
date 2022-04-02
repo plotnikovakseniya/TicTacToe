@@ -5,13 +5,14 @@ namespace tictactoe
 {
 
 GameBoard::GameBoard(Dimension dimension)
-    : m_dimension {dimension},
+    : m_gameState {GameState::Continue},
+      m_dimension {dimension},
       m_nextMove {CageValue::FirstPlayer},
       m_gameBoard {m_dimension*m_dimension, CageValue::Empty}
 {
 }
 
-GameBoard::GameState GameBoard::updateGameBoard(Row row, Column column, CageValue value)
+GameState GameBoard::updateGameBoard(Row row, Column column, CageValue value)
 {
     if (m_gameState != GameState::Continue)
         return m_gameState;
@@ -24,6 +25,7 @@ GameBoard::GameState GameBoard::updateGameBoard(Row row, Column column, CageValu
         m_nextMove != value)
     {
         m_gameState = GameState::Error;
+        emit gameEnd(m_gameState);
         return m_gameState;
     }
 
@@ -33,11 +35,13 @@ GameBoard::GameState GameBoard::updateGameBoard(Row row, Column column, CageValu
                 CageValue::FirstPlayer;
 
     m_gameState = checkGameState();
+    if (m_gameState != GameState::Continue)
+        emit gameEnd(m_gameState);
 
     return m_gameState;
 }
 
-GameBoard::GameState GameBoard::winner(CageValue value) const
+GameState GameBoard::winner(CageValue value) const
 {
     if (value == CageValue::FirstPlayer)
     {
@@ -50,12 +54,27 @@ GameBoard::GameState GameBoard::winner(CageValue value) const
     return GameState::Continue;
 }
 
-GameBoard::GameState GameBoard::gameState() const
+GameState GameBoard::gameState() const
 {
     return m_gameState;
 }
 
-GameBoard::GameState GameBoard::checkGameState() const
+CageValue GameBoard::cageValue(Row row, Column column) const
+{
+    return m_gameBoard[row * m_dimension + column];
+}
+
+CageValue GameBoard::cageValue(CageIndex index) const
+{
+    return m_gameBoard[index];
+}
+
+CageValue GameBoard::operator[](CageIndex index) const
+{
+    return m_gameBoard[index];
+}
+
+GameState GameBoard::checkGameState() const
 {
     if (m_gameState != GameState::Continue)
         return m_gameState;
@@ -73,61 +92,67 @@ GameBoard::GameState GameBoard::checkGameState() const
     }
 
     // check by column
-    bool gameEnd;
+    bool end;
     for (auto columnBegin = m_gameBoard.begin();
          columnBegin < m_gameBoard.begin() + m_dimension;
          columnBegin += 1)
     {
         if (*columnBegin != CageValue::Empty)
         {
-            gameEnd = true;
+            end = true;
             for (auto columnIter = columnBegin + m_dimension;
-                 columnIter < m_gameBoard.end() && gameEnd;
+                 columnIter < m_gameBoard.end() && end;
                  columnIter += m_dimension)
             {
                 if (*columnIter != *columnBegin)
                 {
-                    gameEnd = false;
+                    end = false;
                 }
             }
-            if (gameEnd)
+            if (end)
+            {
                 return winner(*columnBegin);
+            }
         }
     }
 
     // check main diagonal
-    gameEnd = true;
+    end = true;
     if (*m_gameBoard.begin() != CageValue::Empty)
     {
         for (auto diagIter = m_gameBoard.begin() + m_dimension + 1;
-             diagIter < m_gameBoard.end() && gameEnd;
+             diagIter < m_gameBoard.end() && end;
              diagIter += m_dimension + 1)
         {
             if (*diagIter != *m_gameBoard.begin())
             {
-                gameEnd = false;
+                end = false;
             }
         }
-        if (gameEnd)
+        if (end)
+        {
             return winner(*m_gameBoard.begin());
+        }
     }
 
     // check secondary diagonal
-    gameEnd = true;
+    end = true;
     if (*(m_gameBoard.begin() + m_dimension - 1) != CageValue::Empty)
     {
         const auto& diagStart = m_gameBoard.begin() + m_dimension - 1;
         for (auto diagIter = diagStart + m_dimension - 1;
-             diagIter < m_gameBoard.end() - m_dimension + 1 && gameEnd;
+             diagIter < m_gameBoard.end() - m_dimension + 1 && end;
              diagIter += m_dimension - 1)
         {
             if (*diagIter != *(m_gameBoard.begin() + m_dimension - 1))
             {
-                gameEnd = false;
+                end = false;
             }
         }
-        if (gameEnd)
-            return winner(*m_gameBoard.begin());
+        if (end)
+        {
+            return winner(*(m_gameBoard.begin() + m_dimension - 1));
+        }
     }
 
     // check empty cages

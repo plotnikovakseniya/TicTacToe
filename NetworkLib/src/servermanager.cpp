@@ -21,9 +21,9 @@ void ServerManager::onNewConnection()
 {
     qDebug() << "New connection!";
     QTcpSocket* clientConnection = m_server.nextPendingConnection();
-    if (clientConnection)
+    if (clientConnection)s
     {
-        connectSocketSignals(clientConnection);
+        ServerManager::connectSocketSignals(clientConnection);
         m_clients.push_back(clientConnection);
     }
 }
