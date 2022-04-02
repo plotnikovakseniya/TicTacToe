@@ -43,7 +43,7 @@ GameBoard::GameState GameBoard::winner(CageValue value) const
     {
         return GameState::FirstPlayerWin;
     }
-    if (value == SecondPlayer)
+    if (value == CageValue::SecondPlayer)
     {
         return GameState::SecondPlayerWin;
     }
@@ -73,13 +73,14 @@ GameBoard::GameState GameBoard::checkGameState() const
     }
 
     // check by column
-    bool gameEnd {true};
+    bool gameEnd;
     for (auto columnBegin = m_gameBoard.begin();
          columnBegin < m_gameBoard.begin() + m_dimension;
          columnBegin += 1)
     {
         if (*columnBegin != CageValue::Empty)
         {
+            gameEnd = true;
             for (auto columnIter = columnBegin + m_dimension;
                  columnIter < m_gameBoard.end() && gameEnd;
                  columnIter += m_dimension)
@@ -117,7 +118,7 @@ GameBoard::GameState GameBoard::checkGameState() const
     {
         const auto& diagStart = m_gameBoard.begin() + m_dimension - 1;
         for (auto diagIter = diagStart + m_dimension - 1;
-             diagIter < m_gameBoard.end() && gameEnd;
+             diagIter < m_gameBoard.end() - m_dimension + 1 && gameEnd;
              diagIter += m_dimension - 1)
         {
             if (*diagIter != *(m_gameBoard.begin() + m_dimension - 1))

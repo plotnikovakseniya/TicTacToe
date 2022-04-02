@@ -14,7 +14,6 @@ void GameModel::registerMe(const std::string& moduleName)
 
 bool GameModel::updateGameField(int ind)
 {
-    qDebug() << ind;
     tictactoe::Row row = ind / m_dimension;
     tictactoe::Column column = ind % m_dimension;
     beginResetModel();
