@@ -15,7 +15,7 @@ GameController::GameController(ClientSettings::GameTheme theme,
     dynamic_cast<net::ClientManager*>(m_gameBoard)->setConnectionSettings(
                 net::ConnectionSettings {NETWORK_SETTINGS_FILE, "GameServer"});
     m_gameModel.setGameBoard(m_gameBoard);
-    m_gameModel.setPlayer(tictactoe::FirstPlayer);
+    m_gameModel.setPlayer(tictactoe::CageValue::FirstPlayer);
     connect(m_gameBoard, &tictactoe::GameBoardInterface::gameEnd,
             this, &GameController::onGameEnd);
     connect(m_gameBoard, &tictactoe::GameBoardInterface::gameBoardUpdated,
@@ -58,5 +58,5 @@ bool GameController::setConnectionSettings(const net::ConnectionSettings& connec
 
 void GameController::onGameEnd(tictactoe::GameState state)
 {
-    qDebug() << state;
+    qDebug() << static_cast<unsigned int>(state);
 }

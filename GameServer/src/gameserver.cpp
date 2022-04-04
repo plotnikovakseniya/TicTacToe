@@ -125,7 +125,8 @@ bool GameServer::handlePackage(net::Package &package, QTcpSocket *socket)
             return false; // TODO: error processing
         }
 
-        if (m_currentGames.at(request.gameId())->move(request.index(), value)
+        if (m_currentGames.at(request.gameId())->nextMove() == value &&
+            m_currentGames.at(request.gameId())->move(request.index(), value)
                 != tictactoe::GameState::Error)
         {
             QVariant data;

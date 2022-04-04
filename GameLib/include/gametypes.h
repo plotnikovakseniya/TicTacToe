@@ -12,13 +12,13 @@ using Column = unsigned int;
 using CageIndex = unsigned int;
 using GameId = unsigned int;
 
-enum CageValue {
+enum class CageValue {
     Empty,
     FirstPlayer,
     SecondPlayer
 };
 
-enum GameState {
+enum class GameState {
     Continue,
     FirstPlayerWin,
     SecondPlayerWin,

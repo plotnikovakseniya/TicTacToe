@@ -25,3 +25,6 @@ namespace net
 
     using Port = quint16;
 }
+
+Q_DECLARE_METATYPE(net::PackageType)
+Q_DECLARE_METATYPE(net::ConnectionState)
