@@ -6,6 +6,7 @@ SOURCES += \
         src/gamecontroller.cpp \
         src/gamemodel.cpp \
         src/client.cpp \
+        src/remotegameboard.cpp \
         main.cpp
 
 RESOURCES += \
@@ -22,8 +23,6 @@ QT_QUICK_CONTROLS_CONF += stylesettings/stylesettings.conf
 QML_IMPORT_PATH += $$PWD/qml
 QML2_IMPORT_PATH += $$PWD/qml
 
-INCLUDEPATH += include
-
 QML_DESIGNER_IMPORT_PATH =
 
 DISTFILES += \
@@ -38,8 +37,9 @@ DISTFILES += \
 HEADERS += \
     include/clientsettings.h \
     include/gamecontroller.h \
-    include/gamemodel.h\
-    include/client.h
+    include/gamemodel.h \
+    include/client.h \
+    include/remotegameboard.h
 
 INCLUDEPATH += include \
                ../shared/include

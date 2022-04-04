@@ -7,5 +7,6 @@ Item {
     QtObject {
         id: _icons
         readonly property string themeIcon: "qrc:/stylesettings/icons/theme.svg"
+        readonly property string gameIcon: "qrc:/stylesettings/icons/game.svg"
     }
 }

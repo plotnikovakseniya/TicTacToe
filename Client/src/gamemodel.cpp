@@ -1,8 +1,7 @@
 #include "gamemodel.h"
 
-GameModel::GameModel(tictactoe::Dimension dimension, QObject *parent)
+GameModel::GameModel(QObject *parent)
     : QAbstractListModel {parent},
-      m_dimension {dimension},
       m_gameBoard {nullptr},
       m_player {tictactoe::CageValue::Empty}
 {
@@ -16,20 +15,26 @@ void GameModel::registerMe(const std::string& moduleName)
     qmlRegisterType<GameModel>(moduleName.c_str(), 1, 0, "GameModel");
 }
 
-bool GameModel::updateGameField(int ind)
+bool GameModel::move(int ind)
 {
     if (m_gameBoard != nullptr)
     {
         beginResetModel();
-        m_gameBoard->updateGameBoard(ind / m_dimension,
-                                     ind % m_dimension,
-                                     m_player);
+        m_gameBoard->move(ind, m_player);
         endResetModel();
         return true;
     }
     // emit dataChanged(index(ind), index(ind));
 
     return false;
+}
+
+void GameModel::newGame(tictactoe::Dimension dimension)
+{
+    beginResetModel();
+    m_gameBoard->newGame(dimension);
+    emit dimensionChanged();
+    endResetModel();
 }
 
 QHash<int, QByteArray> GameModel::roleNames() const
@@ -71,12 +76,14 @@ QVariant GameModel::data(const QModelIndex& index, int role) const
 
 tictactoe::Dimension GameModel::dimension() const
 {
-    return m_dimension;
+    return m_gameBoard->dimension();
 }
 
-void GameModel::setGameBoard(tictactoe::GameBoard* newGameBoard)
+void GameModel::setGameBoard(tictactoe::GameBoardInterface* newGameBoard)
 {
+    beginResetModel();
     m_gameBoard = newGameBoard;
+    endResetModel();
 }
 
 void GameModel::setPlayer(tictactoe::CageValue newPlayer)
@@ -84,8 +91,14 @@ void GameModel::setPlayer(tictactoe::CageValue newPlayer)
     m_player = newPlayer;
 }
 
+void GameModel::onGameBoardUpdated()
+{
+    beginResetModel();
+    endResetModel();
+}
+
 int GameModel::rowCount(const QModelIndex& parent) const
 {
     Q_UNUSED(parent)
-    return static_cast<int>(m_dimension * m_dimension);
+    return static_cast<int>(m_gameBoard->dimension() * m_gameBoard->dimension());
 }

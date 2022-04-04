@@ -23,6 +23,7 @@ protected:
     QTcpServer m_server;
     std::vector<QTcpSocket*> m_clients;
 
+    virtual bool sendPackage(net::Package& package, QTcpSocket* socket) const;
     virtual bool handlePackage(net::Package& package, QTcpSocket* socket);
     virtual void connectSignals();
     virtual void connectSocketSignals(QTcpSocket* socket);

@@ -21,7 +21,7 @@ void ServerManager::onNewConnection()
 {
     qDebug() << "New connection!";
     QTcpSocket* clientConnection = m_server.nextPendingConnection();
-    if (clientConnection)s
+    if (clientConnection)
     {
         ServerManager::connectSocketSignals(clientConnection);
         m_clients.push_back(clientConnection);
@@ -78,6 +78,18 @@ void ServerManager::notify(const net::Package &package, QTcpSocket *socket)
     {
         socket->write(package.rawData());
     }
+}
+
+bool ServerManager::sendPackage(Package &package, QTcpSocket *socket) const
+{
+    const bool isConnected {std::find(m_clients.begin(), m_clients.end(), socket) != m_clients.end()};
+    if (isConnected)
+    {
+        socket->write(package.rawData());
+        qDebug() << "Send package with type " << static_cast<int>(package.type());
+    }
+
+    return isConnected;
 }
 
 bool ServerManager::handlePackage(net::Package &package, QTcpSocket *socket)

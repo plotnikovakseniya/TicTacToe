@@ -16,6 +16,7 @@ bool ClientManager::sendPackage(const Package &package)
     if (isConnected)
     {
         m_serverSocket.write(package.rawData());
+        qDebug() << "Send package with type " << static_cast<int>(package.type());
     }
 
     return isConnected;
@@ -73,7 +74,6 @@ void ClientManager::onDataRecieved()
             break;
         }
 
-        qDebug() << "Recieved package with type " << static_cast<int>(inputPackage.type());
         handlePackage(inputPackage);
     }
 }
@@ -99,9 +99,10 @@ bool ClientManager::handlePackage(net::Package &package)
 {
     if (package.type() == PackageType::INVALID)
     {
-            qWarning() << "Invalid package!";
-            return false;
+        qWarning() << "Invalid package!";
+        return false;
     }
+    qDebug() << "Recieved package with type " << static_cast<int>(package.type());
     return true;
 }
 

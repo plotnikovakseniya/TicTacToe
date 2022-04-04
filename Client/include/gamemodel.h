@@ -3,15 +3,15 @@
 #include <QObject>
 #include <QAbstractListModel>
 #include <QQmlEngine>
-#include "gameboard.h"
+#include "gameboardinterface.h"
 #include "gametypes.h"
 
 class GameModel : public QAbstractListModel
 {
     Q_OBJECT
-    Q_PROPERTY(int dimension READ dimension CONSTANT)
+    Q_PROPERTY(int dimension READ dimension NOTIFY dimensionChanged)
 public:
-    explicit GameModel(tictactoe::Dimension dimension = 3, QObject *parent = nullptr);
+    explicit GameModel(QObject *parent = nullptr);
 
     static void registerMe(const std::string& moduleName);
 
@@ -19,20 +19,23 @@ public:
         CageText = Qt::ItemDataRole::UserRole + 1
     };
 
-    Q_INVOKABLE bool updateGameField(int index);
+    Q_INVOKABLE bool move(int index);
+    void newGame(tictactoe::Dimension dimension = 3);
     QVariant data(const QModelIndex& index, int role) const override;
     int rowCount(const QModelIndex& parent) const override;
     QHash<int, QByteArray> roleNames() const override;
     tictactoe::Dimension dimension() const;
-    void setGameBoard(tictactoe::GameBoard *newGameBoard);
-
+    void setGameBoard(tictactoe::GameBoardInterface *newGameBoard);
     void setPlayer(tictactoe::CageValue newPlayer);
 
+public slots:
+    void onGameBoardUpdated();
+
 signals:
+    void dimensionChanged();
 
 private:
-    tictactoe::Dimension m_dimension;
-    tictactoe::GameBoard* m_gameBoard;
+    tictactoe::GameBoardInterface* m_gameBoard;
     tictactoe::CageValue m_player;
     std::map<tictactoe::CageValue, char> m_cageValueSign;
 };

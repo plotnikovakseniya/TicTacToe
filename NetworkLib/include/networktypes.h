@@ -14,7 +14,7 @@ namespace net
         GAME_END_RESPONSE,
         NEXT_MOVE_REQUEST,
         NEXT_MOVE_RESPONSE,
-        GAME_FIELD_UPDATE
+        GAME_BOARD_UPDATE_NOTIFY,
     };
 
     enum class ConnectionState {

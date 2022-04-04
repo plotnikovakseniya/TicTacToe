@@ -1,6 +1,8 @@
 #pragma once
 
 #include <vector>
+#include <QObject>
+
 namespace tictactoe
 {
 
@@ -8,6 +10,7 @@ using Dimension = unsigned int;
 using Row = unsigned int;
 using Column = unsigned int;
 using CageIndex = unsigned int;
+using GameId = unsigned int;
 
 enum CageValue {
     Empty,
@@ -24,3 +27,6 @@ enum GameState {
 };
 
 }
+
+Q_DECLARE_METATYPE(tictactoe::CageValue)
+Q_DECLARE_METATYPE(tictactoe::GameState)

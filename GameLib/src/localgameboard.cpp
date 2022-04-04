@@ -1,26 +1,44 @@
-#include "gameboard.h"
+#include "localgameboard.h"
 #include <algorithm>
 
 namespace tictactoe
 {
 
-GameBoard::GameBoard(Dimension dimension)
-    : m_gameState {GameState::Continue},
-      m_dimension {dimension},
-      m_nextMove {CageValue::FirstPlayer},
-      m_gameBoard {m_dimension*m_dimension, CageValue::Empty}
+LocalGameBoard::LocalGameBoard(Dimension dimension)
+    : GameBoardInterface {GameState::Continue, dimension, CageValue::FirstPlayer}
 {
 }
 
-GameState GameBoard::updateGameBoard(Row row, Column column, CageValue value)
+void LocalGameBoard::newGame(Dimension dimension)
+{
+    m_dimension = dimension;
+    m_gameBoard.clear();
+    m_gameBoard.resize(dimension * dimension, tictactoe::CageValue::Empty);
+    m_gameState = GameState::Continue;
+    m_nextMove = CageValue::FirstPlayer;
+}
+
+GameState LocalGameBoard::move(Row row, Column column, CageValue value)
 {
     if (m_gameState != GameState::Continue)
         return m_gameState;
 
-    CageIndex ind = row * m_dimension + column;
+    if (row > m_dimension - 1 || column > m_dimension - 1)
+    {
+        m_gameState = GameState::Error;
+        emit gameEnd(m_gameState);
+        return m_gameState;
+    }
+
+    return move(row * m_dimension + column, value);
+}
+
+GameState LocalGameBoard::move(CageIndex ind, CageValue value)
+{
+    if (m_gameState != GameState::Continue)
+        return m_gameState;
 
     if (value == CageValue::Empty ||
-        row > m_dimension - 1 || column > m_dimension - 1 ||
         m_gameBoard.at(ind) != CageValue::Empty ||
         m_nextMove != value)
     {
@@ -41,7 +59,7 @@ GameState GameBoard::updateGameBoard(Row row, Column column, CageValue value)
     return m_gameState;
 }
 
-GameState GameBoard::winner(CageValue value) const
+GameState LocalGameBoard::winner(CageValue value) const
 {
     if (value == CageValue::FirstPlayer)
     {
@@ -54,27 +72,27 @@ GameState GameBoard::winner(CageValue value) const
     return GameState::Continue;
 }
 
-GameState GameBoard::gameState() const
+GameState LocalGameBoard::gameState() const
 {
     return m_gameState;
 }
 
-CageValue GameBoard::cageValue(Row row, Column column) const
+CageValue LocalGameBoard::cageValue(Row row, Column column) const
 {
     return m_gameBoard[row * m_dimension + column];
 }
 
-CageValue GameBoard::cageValue(CageIndex index) const
+CageValue LocalGameBoard::cageValue(CageIndex index) const
 {
     return m_gameBoard[index];
 }
 
-CageValue GameBoard::operator[](CageIndex index) const
+CageValue LocalGameBoard::operator[](CageIndex index) const
 {
     return m_gameBoard[index];
 }
 
-GameState GameBoard::checkGameState() const
+GameState LocalGameBoard::checkGameState() const
 {
     if (m_gameState != GameState::Continue)
         return m_gameState;

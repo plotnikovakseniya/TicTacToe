@@ -16,7 +16,7 @@ GridView {
         MouseArea {
             id: _mouseArea
             anchors.fill: parent
-            onClicked: root.model.updateGameField(index) // console.log(index)
+            onClicked: root.model.move(index) // console.log(index)
         }
     }
 

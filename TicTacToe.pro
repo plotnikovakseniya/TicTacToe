@@ -1,6 +1,6 @@
 TEMPLATE = subdirs
-SUBDIRS += NetworkLib
 SUBDIRS += GameLib
+SUBDIRS += NetworkLib
 SUBDIRS += DBServer
 SUBDIRS += AuthServer
 SUBDIRS += GameServer

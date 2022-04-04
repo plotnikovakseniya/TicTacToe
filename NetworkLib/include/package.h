@@ -10,6 +10,7 @@ class Package
 public:
     Package(PackageType type = PackageType::INVALID);
     Package(const QVariant& data, PackageType = PackageType::INVALID);
+    Package(const Package& package);
 
     PackageType type() const;
     QVariant data() const;

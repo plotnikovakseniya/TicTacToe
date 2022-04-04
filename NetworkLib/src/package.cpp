@@ -1,4 +1,7 @@
 #include "package.h"
+#include "nextmovemessage.h"
+#include "gamestartresponse.h"
+#include <QDebug>
 
 namespace net
 {
@@ -14,6 +17,13 @@ Package::Package(const QVariant &data, PackageType type)
                  : Package(type)
 {
     m_data = data;
+    fillTranslationStream();
+}
+
+Package::Package(const Package& package)
+                 : Package(package.type())
+{
+    m_data = package.data();
     fillTranslationStream();
 }
 
@@ -49,7 +59,42 @@ QDataStream& operator>>(QDataStream &stream, net::Package &package)
 
 void Package::fillTranslationStream()
 {
-    m_translationStream << m_type
-                        << m_data;
+    switch (m_type)
+    {
+        case (net::PackageType::NEXT_MOVE_REQUEST):
+        {
+            m_translationStream << m_type;
+            net::NextMoveMessage request;
+            m_data >> request;
+            m_translationStream << request;
+            break;
+        }
+        case (net::PackageType::GAME_START_REQUEST):
+        {
+            m_translationStream << m_type;
+            m_translationStream << m_data;
+            break;
+        }
+        case (net::PackageType::GAME_START_RESPONSE):
+        {
+            m_translationStream << m_type;
+            net::GameStartResponse response;
+            m_data >> response;
+            m_translationStream << response;
+            break;
+        }
+        case (net::PackageType::GAME_BOARD_UPDATE_NOTIFY):
+        {
+            m_translationStream << m_type;
+            net::NextMoveMessage notify;
+            m_data >> notify;
+            m_translationStream << notify;
+            break;
+        }
+        default:
+        {
+            qWarning() << "Can't translate package with type " << static_cast<int>(m_type);
+        }
+    }
 }
 }

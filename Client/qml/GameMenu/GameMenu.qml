@@ -11,7 +11,16 @@ MenuBar {
     Menu {
         id: _menu
 
-        title: qsTr("&Settings")
+        title: qsTr("&Menu")
+
+        Action {
+            id: _start
+            text: "&Start new game"
+            icon.source: ResourceProvider.icons.gameIcon
+            onTriggered: {
+                gameController.newGame()
+            }
+        }
 
         Action {
             id: _theme

@@ -8,5 +8,6 @@
         <file>qml/ResourceProvider/ResourceProvider.qml</file>
         <file>qml/GameBoard/GameBoard.qml</file>
         <file>qml/GameBoard/GameDelegate.qml</file>
+        <file>stylesettings/icons/game.svg</file>
     </qresource>
 </RCC>
