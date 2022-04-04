@@ -2,10 +2,11 @@
 #include <QDataStream>
 #include <QVariant>
 #include "networktypes.h"
+#include "netlib_global.h"
 
 namespace net
 {
-class Package
+class NET_LIB_EXPORT Package
 {
 public:
     Package(PackageType type = PackageType::INVALID);

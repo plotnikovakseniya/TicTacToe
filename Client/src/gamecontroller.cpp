@@ -20,7 +20,6 @@ GameController::GameController(ClientSettings::GameTheme theme,
             this, &GameController::onGameEnd);
     connect(m_gameBoard, &tictactoe::GameBoardInterface::gameBoardUpdated,
             &m_gameModel, &GameModel::onGameBoardUpdated);
-
 }
 
 void GameController::registerMe(const std::string& moduleName)

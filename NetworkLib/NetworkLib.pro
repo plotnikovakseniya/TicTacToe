@@ -15,7 +15,8 @@ HEADERS += include/package.h \
            include/servermanager.h \
            include/clientmanager.h \
            include/connectionsettings.h \
-           include/gamestartresponse.h
+           include/gamestartresponse.h \
+           include/netlib_global.h
 
 INCLUDEPATH += include \
                ../shared/include
@@ -31,7 +32,9 @@ headers.files = include/package.h \
                 include/clientmanager.h \
                 include/connectionsettings.h \
                 include/nextmovemessage.h \
-                include/gamestartresponse.h
+                include/gamestartresponse.h \
+                include/netlib_global.h
 
 INSTALLS += headers
 
+DEFINES += MAKE_NET_LIB

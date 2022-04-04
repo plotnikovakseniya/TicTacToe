@@ -1,12 +1,13 @@
 #pragma once
 
 #include "networktypes.h"
+#include "netlib_global.h"
 #include <QSettings>
 
 namespace net
 {
 
-class ConnectionSettings
+class NET_LIB_EXPORT ConnectionSettings
 {
 public:
     ConnectionSettings();

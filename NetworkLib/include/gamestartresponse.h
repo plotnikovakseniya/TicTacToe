@@ -3,11 +3,12 @@
 #include "../shared/include/gametypes.h"
 #include <QObject>
 #include <QVariant>
+#include "netlib_global.h"
 
 namespace net
 {
 
-class GameStartResponse : public QObject
+class NET_LIB_EXPORT GameStartResponse : public QObject
 {
     Q_OBJECT
 public:

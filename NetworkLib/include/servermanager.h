@@ -3,11 +3,12 @@
 #include <QSettings>
 #include "package.h"
 #include "connectionsettings.h"
+#include "netlib_global.h"
 
 namespace net
 {
 
-class ServerManager : public QObject
+class NET_LIB_EXPORT ServerManager : public QObject
 {
     Q_OBJECT
 public:

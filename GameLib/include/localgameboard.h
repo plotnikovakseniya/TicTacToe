@@ -4,11 +4,12 @@
 #include <QObject>
 #include "gametypes.h"
 #include "gameboardinterface.h"
+#include "gamelib_global.h"
 
 namespace tictactoe
 {
 
-class LocalGameBoard : public GameBoardInterface
+class GAME_LIB_EXPORT LocalGameBoard : public GameBoardInterface
 {
     Q_OBJECT
 public:
