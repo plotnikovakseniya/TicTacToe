@@ -19,11 +19,11 @@ public:
     GameStartResponse(const GameStartResponse& request);
     ~GameStartResponse();
 
-    friend void operator <<(QVariant& data, const GameStartResponse& request);
-    friend void operator >>(const QVariant& data, GameStartResponse& request);
-    friend QDataStream& operator >>(QDataStream& stream,
+    NET_LIB_EXPORT friend void operator <<(QVariant& data, const GameStartResponse& request);
+    NET_LIB_EXPORT friend void operator >>(const QVariant& data, GameStartResponse& request);
+    NET_LIB_EXPORT friend QDataStream& operator >>(QDataStream& stream,
                                     GameStartResponse& request);
-    friend QDataStream& operator <<(QDataStream& stream,
+    NET_LIB_EXPORT friend QDataStream& operator <<(QDataStream& stream,
                                     const GameStartResponse& request);
 
 

@@ -17,7 +17,7 @@ public:
     QVariant data() const;
     QByteArray rawData() const;
 
-    friend QDataStream& operator>>(QDataStream& stream, Package& package);
+    NET_LIB_EXPORT friend QDataStream& operator>>(QDataStream& stream, Package& package);
 private:
     QByteArray m_rawData;
     QDataStream m_translationStream;

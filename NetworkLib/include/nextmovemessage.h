@@ -19,11 +19,11 @@ public:
     NextMoveMessage(const NextMoveMessage& request);
     ~NextMoveMessage();
 
-    friend void operator <<(QVariant& data, const NextMoveMessage& request);
-    friend void operator >>(const QVariant& data, NextMoveMessage& request);
-    friend QDataStream& operator >>(QDataStream& stream,
+    NET_LIB_EXPORT friend void operator <<(QVariant& data, const NextMoveMessage& request);
+    NET_LIB_EXPORT friend void operator >>(const QVariant& data, NextMoveMessage& request);
+    NET_LIB_EXPORT friend QDataStream& operator >>(QDataStream& stream,
                                     NextMoveMessage& request);
-    friend QDataStream& operator <<(QDataStream& stream,
+    NET_LIB_EXPORT friend QDataStream& operator <<(QDataStream& stream,
                                     const NextMoveMessage& request);
 
 
