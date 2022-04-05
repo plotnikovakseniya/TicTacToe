@@ -1,4 +1,5 @@
 #include "gamestartresponse.h"
+#include "networktypes.h"
 
 namespace net
 {
@@ -32,18 +33,6 @@ tictactoe::GameId GameStartResponse::gameId() const
 tictactoe::CageValue GameStartResponse::player() const
 {
     return m_player;
-}
-
-template<typename T>
-void operator <<(QVariant& data, const T& target)
-{
-    data = QVariant::fromValue<T>(target);
-}
-
-template<typename T>
-void operator >>(const QVariant& data, T& target)
-{
-    target = data.value<T>();
 }
 
 void operator <<(QVariant& data, const GameStartResponse& request)

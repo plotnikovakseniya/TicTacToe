@@ -28,7 +28,6 @@ public:
 
 
     tictactoe::GameId gameId() const;
-
     tictactoe::CageIndex index() const;
 
 protected:

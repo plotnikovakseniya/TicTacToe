@@ -1,9 +1,9 @@
 #include "gamemodel.h"
+#include "remotegameboard.h"
 
 GameModel::GameModel(QObject *parent)
     : QAbstractListModel {parent},
-      m_gameBoard {nullptr},
-      m_player {tictactoe::CageValue::Empty}
+      m_gameBoard {nullptr}
 {
     m_cageValueSign = {{tictactoe::CageValue::Empty, ' '},
                        {tictactoe::CageValue::FirstPlayer, 'X'},
@@ -19,14 +19,9 @@ bool GameModel::move(int ind)
 {
     if (m_gameBoard != nullptr)
     {
-        beginResetModel();
-        m_gameBoard->move(ind, m_player);
-        endResetModel();
-        return true;
+        m_gameBoard->move(ind, dynamic_cast<RemoteGameBoard*>(m_gameBoard)->player());
     }
-    // emit dataChanged(index(ind), index(ind));
-
-    return false;
+    return true;
 }
 
 void GameModel::newGame(tictactoe::Dimension dimension)
@@ -84,11 +79,6 @@ void GameModel::setGameBoard(tictactoe::GameBoardInterface* newGameBoard)
     beginResetModel();
     m_gameBoard = newGameBoard;
     endResetModel();
-}
-
-void GameModel::setPlayer(tictactoe::CageValue newPlayer)
-{
-    m_player = newPlayer;
 }
 
 void GameModel::onGameBoardUpdated()

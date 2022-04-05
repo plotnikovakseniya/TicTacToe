@@ -50,9 +50,9 @@ void GameServer::connectSocketSignals(QTcpSocket* socket)
             this, &GameServer::onClientDisconnected);
 }
 
-bool GameServer::handlePackage(net::Package &package, QTcpSocket *socket)
+bool GameServer::handlePackage(net::Package &package, QTcpSocket *player)
 {
-    if (!net::ServerManager::handlePackage(package, socket))
+    if (!net::ServerManager::handlePackage(package, player))
     {
         return false;
     }
@@ -64,7 +64,7 @@ bool GameServer::handlePackage(net::Package &package, QTcpSocket *socket)
         if (m_waitingClients.size() > 0)
         {
             // find patner
-            m_playingClients[m_nextGameId] = {socket, m_waitingClients.front()};
+            m_playingClients[m_nextGameId] = {m_waitingClients.front(), player};
             m_waitingClients.pop_front();
             m_currentGames[m_nextGameId] = new tictactoe::LocalGameBoard();
 
@@ -86,7 +86,7 @@ bool GameServer::handlePackage(net::Package &package, QTcpSocket *socket)
         }
         else
         {
-            m_waitingClients.push_back(socket);
+            m_waitingClients.push_back(player);
         }
         break;
     }
@@ -109,12 +109,12 @@ bool GameServer::handlePackage(net::Package &package, QTcpSocket *socket)
         tictactoe::CageValue value;
         QTcpSocket* partner;
 
-        if (socket == m_playingClients.at(request.gameId()).first)
+        if (player == m_playingClients.at(request.gameId()).first)
         {
             value = tictactoe::CageValue::FirstPlayer;
             partner = m_playingClients.at(request.gameId()).second;
         }
-        else if (socket == m_playingClients.at(request.gameId()).second)
+        else if (player == m_playingClients.at(request.gameId()).second)
         {
             value = tictactoe::CageValue::SecondPlayer;
             partner = m_playingClients.at(request.gameId()).first;
@@ -129,15 +129,41 @@ bool GameServer::handlePackage(net::Package &package, QTcpSocket *socket)
             m_currentGames.at(request.gameId())->move(request.index(), value)
                 != tictactoe::GameState::Error)
         {
-            QVariant data;
-            data << net::NextMoveMessage {request.gameId(), request.index()};
-            net::Package package {data, net::PackageType::GAME_BOARD_UPDATE_NOTIFY};
-            sendPackage(package, partner);
+            QVariant dataPartner;
+            dataPartner << net::NextMoveMessage {request.gameId(), request.index()};
+            net::Package packagePartner {dataPartner, net::PackageType::GAME_BOARD_UPDATE_NOTIFY};
+            sendPackage(packagePartner, partner);
+
+            QVariant dataPlayer;
+            net::NextMoveMessage response {request.gameId(), net::RESPONSE_OK};
+            dataPlayer << response;
+            net::Package packagePlayer = {dataPlayer, net::PackageType::NEXT_MOVE_RESPONSE};
+            sendPackage(packagePlayer, player);
+
+            // TODO: send GAME END with game result
+//            if (m_currentGames.at(request.gameId())->gameState() != tictactoe::GameState::Continue)
+//            {
+//                QVariant dataPartner;
+//                dataPartner << net::NextMoveMessage {request.gameId(), request.index()};
+//                net::Package packagePartner {dataPartner, net::PackageType::GAME_BOARD_UPDATE_NOTIFY};
+//                sendPackage(packagePartner, partner);
+
+//                QVariant dataPlayer;
+//                net::NextMoveMessage response {request.gameId(), net::RESPONSE_OK};
+//                dataPlayer << response;
+//                net::Package packagePlayer = {dataPlayer, net::PackageType::NEXT_MOVE_RESPONSE};
+//                sendPackage(packagePlayer, player);
+//            }
         }
         else
         {
+            QVariant dataPlayer;
+            net::NextMoveMessage response {request.gameId(), 0};
+            dataPlayer << response;
+            net::Package packagePlayer = {dataPlayer, net::PackageType::NEXT_MOVE_RESPONSE};
+            sendPackage(packagePlayer, player);
             qWarning() << "NEXT_MOVE_REQUEST processing: update game board failed!";
-            return false; // TODO: error processing
+            return false;
         }
         break;
     }

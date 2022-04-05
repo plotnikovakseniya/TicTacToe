@@ -86,6 +86,8 @@ bool ServerManager::sendPackage(Package &package, QTcpSocket *socket) const
     if (isConnected)
     {
         socket->write(package.rawData());
+        // socket->flush();
+        socket->waitForBytesWritten();
         qDebug() << "Send package with type " << static_cast<int>(package.type());
     }
 

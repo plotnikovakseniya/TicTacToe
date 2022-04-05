@@ -16,6 +16,8 @@ bool ClientManager::sendPackage(const Package &package)
     if (isConnected)
     {
         m_serverSocket.write(package.rawData());
+        // m_serverSocket.flush();
+        m_serverSocket.waitForBytesWritten();
         qDebug() << "Send package with type " << static_cast<int>(package.type());
     }
 

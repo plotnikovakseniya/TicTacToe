@@ -26,7 +26,6 @@ public:
     QHash<int, QByteArray> roleNames() const override;
     tictactoe::Dimension dimension() const;
     void setGameBoard(tictactoe::GameBoardInterface *newGameBoard);
-    void setPlayer(tictactoe::CageValue newPlayer);
 
 public slots:
     void onGameBoardUpdated();
@@ -36,6 +35,5 @@ signals:
 
 private:
     tictactoe::GameBoardInterface* m_gameBoard;
-    tictactoe::CageValue m_player;
     std::map<tictactoe::CageValue, char> m_cageValueSign;
 };

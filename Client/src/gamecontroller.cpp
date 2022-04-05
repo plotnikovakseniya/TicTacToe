@@ -15,7 +15,6 @@ GameController::GameController(ClientSettings::GameTheme theme,
     dynamic_cast<net::ClientManager*>(m_gameBoard)->setConnectionSettings(
                 net::ConnectionSettings {NETWORK_SETTINGS_FILE, "GameServer"});
     m_gameModel.setGameBoard(m_gameBoard);
-    m_gameModel.setPlayer(tictactoe::CageValue::FirstPlayer);
     connect(m_gameBoard, &tictactoe::GameBoardInterface::gameEnd,
             this, &GameController::onGameEnd);
     connect(m_gameBoard, &tictactoe::GameBoardInterface::gameBoardUpdated,

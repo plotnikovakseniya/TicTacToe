@@ -18,6 +18,8 @@ public:
     tictactoe::CageValue cageValue(tictactoe::CageIndex index) const override;
     tictactoe::CageValue cageValue(tictactoe::Row row, tictactoe::Column column) const override;
     virtual tictactoe::CageValue operator[](tictactoe::CageIndex index) const override;
+    tictactoe::CageValue partner() const;
+    tictactoe::CageValue player() const;
 
 private:
     RemoteGameBoard();
@@ -26,4 +28,5 @@ private:
     tictactoe::GameId m_gameId;
     tictactoe::CageValue m_player;
     tictactoe::CageValue m_partner;
+    tictactoe::CageIndex m_lastMove;
 };

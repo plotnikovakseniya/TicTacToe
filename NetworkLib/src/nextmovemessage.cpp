@@ -1,4 +1,5 @@
 #include "nextmovemessage.h"
+#include "networktypes.h"
 
 namespace net
 {
@@ -32,18 +33,6 @@ tictactoe::GameId NextMoveMessage::gameId() const
 tictactoe::CageIndex NextMoveMessage::index() const
 {
     return m_index;
-}
-
-template<typename T>
-void operator <<(QVariant& data, const T& target)
-{
-    data = QVariant::fromValue<T>(target);
-}
-
-template<typename T>
-void operator >>(const QVariant& data, T& target)
-{
-    target = data.value<T>();
 }
 
 void operator <<(QVariant& data, const NextMoveMessage& request)

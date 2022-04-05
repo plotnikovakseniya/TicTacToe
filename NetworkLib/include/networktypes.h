@@ -1,9 +1,13 @@
 #pragma once
 #include <QtGlobal>
 #include <QHostAddress>
+#include <climits>
+#include "../shared/include/gametypes.h"
 
 namespace net
 {
+    const tictactoe::CageIndex RESPONSE_OK = std::numeric_limits<tictactoe::CageIndex>::max();
+
     enum class PackageType {
         INVALID,
         AUTH_REQUEST,
@@ -24,6 +28,18 @@ namespace net
     };
 
     using Port = quint16;
+
+    template<typename T>
+    void operator <<(QVariant& data, const T& target)
+    {
+        data = QVariant::fromValue<T>(target);
+    }
+
+    template<typename T>
+    void operator >>(const QVariant& data, T& target)
+    {
+        target = data.value<T>();
+    }
 }
 
 Q_DECLARE_METATYPE(net::PackageType)

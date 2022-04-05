@@ -61,6 +61,14 @@ void Package::fillTranslationStream()
 {
     switch (m_type)
     {
+        case (net::PackageType::NEXT_MOVE_RESPONSE):
+        {
+            m_translationStream << m_type;
+            net::NextMoveMessage response;
+            m_data >> response;
+            m_translationStream << response;
+            break;
+        }
         case (net::PackageType::NEXT_MOVE_REQUEST):
         {
             m_translationStream << m_type;
